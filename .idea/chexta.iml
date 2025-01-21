@@ -91,6 +91,7 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/shalvah/clara" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/shalvah/upgrader" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/spatie/data-transfer-object" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/spatie/laravel-permission" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/staabm/side-effects-detector" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/symfony/clock" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/symfony/console" />
