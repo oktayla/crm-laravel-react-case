@@ -124,6 +124,13 @@
       <path value="$PROJECT_DIR$/backend/vendor/league/mime-type-detection" />
       <path value="$PROJECT_DIR$/backend/vendor/league/uri" />
       <path value="$PROJECT_DIR$/backend/vendor/laravel/sanctum" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/var-exporter" />
+      <path value="$PROJECT_DIR$/backend/vendor/spatie/data-transfer-object" />
+      <path value="$PROJECT_DIR$/backend/vendor/shalvah/clara" />
+      <path value="$PROJECT_DIR$/backend/vendor/shalvah/upgrader" />
+      <path value="$PROJECT_DIR$/backend/vendor/knuckleswtf/scribe" />
+      <path value="$PROJECT_DIR$/backend/vendor/erusev/parsedown" />
+      <path value="$PROJECT_DIR$/backend/vendor/mpociot/reflection-docblock" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
