@@ -9,7 +9,7 @@ use App\Services\CustomerService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-/*
+/**
  * @group Customers
  */
 class CustomerController extends Controller
@@ -22,6 +22,8 @@ class CustomerController extends Controller
      * Get Customers
      *
      * Retrieve a paginated list of customers. You can filter customers by providing query parameters in the request.
+     *
+     * @authenticated
      *
      * @queryParam per_page int Number of customers per page. Defaults to 10. Example: 15
      * @queryParam filters[first_name] string Filter by the customer's first name. Example: John

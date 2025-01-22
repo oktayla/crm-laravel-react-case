@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Repositories\CustomerRepositoryInterface;
+use App\Models\Customer;
+use App\Repositories\Interfaces\CustomerRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-use App\Models\Customer;
 
 class CustomerService
 {

@@ -9,13 +9,13 @@ class ResponseBuilder
     /**
      * Build a success response.
      *
-     * @param array $data
+     * @param mixed $data
      * @param string|null $message
      * @param int $status
      * @return JsonResponse
      */
     public static function success(
-        array $data = [],
+        mixed $data = null,
         ?string $message = null,
         int $status = 200
     ): JsonResponse
@@ -51,12 +51,12 @@ class ResponseBuilder
     /**
      * Build a response for newly created resource.
      *
-     * @param array $data
+     * @param mixed $data
      * @param string|null $message
      * @return JsonResponse
      */
     public static function created(
-        array $data = [],
+        mixed $data = null,
         ?string $message = null
     ): JsonResponse
     {
