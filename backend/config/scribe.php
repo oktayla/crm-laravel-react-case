@@ -18,7 +18,7 @@ return [
             // Routes that match these conditions will be included in the docs
             'match' => [
                 // Match only routes whose paths match this pattern (use * as a wildcard to match any characters). Example: 'users/*'.
-                'prefixes' => ['api/*'],
+                'prefixes' => ['*'],
 
                 // Match only routes whose domains match this pattern (use * as a wildcard to match any characters). Example: 'api.*'.
                 'domains' => ['*'],
@@ -34,7 +34,10 @@ return [
 
             // Exclude these routes even if they matched the rules above.
             'exclude' => [
-                // 'GET /health', 'admin.*'
+                '/',
+                '/sanctum/csrf-cookie',
+                '/storage/*',
+                '/up',
             ],
         ],
     ],
@@ -136,6 +139,7 @@ INTRO
     'example_languages' => [
         'bash',
         'javascript',
+        'php',
     ],
 
     // Generate a Postman collection (v2.1.0) in addition to HTML docs.

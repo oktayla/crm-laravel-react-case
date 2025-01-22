@@ -24,7 +24,10 @@ class CustomerController extends Controller
      * Retrieve a paginated list of customers. You can filter customers by providing query parameters in the request.
      *
      * @queryParam per_page int Number of customers per page. Defaults to 10. Example: 15
-     * @queryParam filters array Filters to apply to the customer list. Example: {"name": "John Doe"}
+     * @queryParam filters[first_name] string Filter by the customer's first name. Example: John
+     * @queryParam filters[last_name] string Filter by the customer's last name. Example: Doe
+     * @queryParam filters[phone] string Filter by the customer's phone number. Example: +1 234 555 66 77
+     * @queryParam filters[email] string Filter by the customer's email address. Example: john.doe@example.com
      *
      * @response 200 {
      *   "success": true,
@@ -35,7 +38,7 @@ class CustomerController extends Controller
      *         "first_name": "John",
      *         "last_name": "Doe",
      *         "phone": "+1 234 555 66 77",
-     *         "email": "john.doe@example.com",
+     *         "email": "john.doe@example.com"
      *       }
      *     ],
      *     "current_page": 1,
