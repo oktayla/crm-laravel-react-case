@@ -34,7 +34,8 @@ class CustomerController extends Controller
      *     "customers": [
      *       {
      *         "id": 1,
-     *         "name": "John Doe",
+     *         "first_name": "John",
+     *         "last_name": "Doe",
      *         "phone": "+1 234 555 66 77",
      *         "email": "john.doe@example.com",
      *       }
@@ -47,8 +48,9 @@ class CustomerController extends Controller
      * }
      * @responseField customers[] The list of customers.
      * @responseField customers[].id The ID of the customer.
-     * @responseField customers[].name The name of the customer.
-     * @responseField customers[].name The phone number of the customer.
+     * @responseField customers[].first_name The first name of the customer.
+     * @responseField customers[].last_name The last name of the customer.
+     * @responseField customers[].phone The phone number of the customer.
      * @responseField customers[].email The email address of the customer.
      * @responseField current_page The current page of the pagination.
      * @responseField per_page The number of items per page.
@@ -83,13 +85,16 @@ class CustomerController extends Controller
      *
      * @response 201 {
      *   "id": 1,
-     *   "name": "John Doe",
+     *   "first_name": "John",
+     *   "last_name": "John",
      *   "email": "john.doe@example.com",
      *   "phone": "+1 234 555 66 77",
      * }
      * @responseField id The ID of the customer.
-     * @responseField name The name of the customer.
+     * @responseField name The first name of the customer.
+     * @responseField name The last name of the customer.
      * @responseField email The email address of the customer.
+     * @responseField phone The phone number of the customer.
      * @responseField created_at The creation timestamp of the customer.
      * @responseField updated_at The last update timestamp of the customer.
      */
