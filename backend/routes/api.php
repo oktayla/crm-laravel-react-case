@@ -10,7 +10,7 @@ Route::controller(CustomerController::class)
         Route::get('/', 'index')->middleware('permission:view customers');
         Route::post('/', 'store')->middleware('permission:create customers');
 
-        Route::get('statistics', 'statistics')->middleware('permission:view customers');
+        /*Route::get('statistics', 'statistics')->middleware('permission:view customers');
         Route::get('search', 'search')->middleware('permission:view customers');
 
         Route::get('{id}', 'show')->middleware('permission:view customers');
@@ -20,5 +20,5 @@ Route::controller(CustomerController::class)
         Route::get('{id}/orders', 'orders')->middleware('permission:view orders');
         Route::get('{id}/invoices', 'invoices')->middleware('permission:view invoices');
 
-        Route::get('customers', 'export')->middleware('permission:view customers');
+        Route::get('customers', 'export')->middleware('permission:view customers');*/
     });

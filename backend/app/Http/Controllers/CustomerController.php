@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Helpers\ResponseBuilder;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Resources\CustomerResource;
-use App\Models\Customer;
 use App\Services\CustomerService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -17,8 +16,7 @@ class CustomerController extends Controller
 {
     public function __construct(
         protected CustomerService $customerService
-    ) {
-    }
+    ) {}
 
     /**
      * Get Customers
@@ -80,27 +78,36 @@ class CustomerController extends Controller
      *
      * Create a new customer in the system.
      *
-     * @bodyParam name string required The name of the customer. Example: John Doe
+     * @bodyParam first_name string required The first name of the customer. Example: John
+     * @bodyParam last_name string required The last name of the customer. Example: Doe
+     * @bodyParam phone string required The phone number of the customer. Example: +1 234 555 66 77
      * @bodyParam email string required The email address of the customer. Example: john.doe@example.com
      *
      * @response 201 {
-     *   "id": 1,
-     *   "first_name": "John",
-     *   "last_name": "John",
-     *   "email": "john.doe@example.com",
-     *   "phone": "+1 234 555 66 77",
+     *   "data": {
+     *     "id": 1,
+     *     "first_name": "John",
+     *     "last_name": "Doe",
+     *     "email": "john.doe@example.com",
+     *     "phone": "+1 234 555 66 77"
+     *   },
+     *   "message": "User created successfully."
      * }
-     * @responseField id The ID of the customer.
-     * @responseField name The first name of the customer.
-     * @responseField name The last name of the customer.
-     * @responseField email The email address of the customer.
-     * @responseField phone The phone number of the customer.
-     * @responseField created_at The creation timestamp of the customer.
-     * @responseField updated_at The last update timestamp of the customer.
+     * @responseField data.id The ID of the customer.
+     * @responseField data.first_name The first name of the customer.
+     * @responseField data.last_name The last name of the customer.
+     * @responseField data.email The email address of the customer.
+     * @responseField data.phone The phone number of the customer.
+     * @responseField message A success message for the operation.
      */
-    public function store(StoreCustomerRequest $request): Customer
+    public function store(StoreCustomerRequest $request): JsonResponse
     {
-        return $this->customerService
+        $customer = $this->customerService
             ->createCustomer($request->validated());
+
+        return ResponseBuilder::created(
+            data: $customer->toArray(),
+            message: 'User created successfully.',
+        );
     }
 }
