@@ -1,6 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import SalesChart from '../components/SalesChart'
-import CustomerList from '../components/CustomerList'
 import RecentActivity from '../components/RecentActivity'
 
 const Dashboard = () => {
@@ -56,14 +55,6 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </div>
-      <Card>
-        <CardHeader>
-          <CardTitle>Customer List</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CustomerList />
-        </CardContent>
-      </Card>
     </div>
   )
 }

@@ -3,17 +3,24 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
+import useAuthStore from '@/store/useAuthStore'
 
-const Login = ({ setCurrentPage }) => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+const Login = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+
+  const { login, isAuthenticated, user } = useAuthStore()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Here you would typically handle the login logic
-    console.log("Login attempted with:", email, password)
-    // For now, we'll just redirect to the dashboard
-    setCurrentPage("dashboard")
+
+    setError('')
+
+    login(email, password)
+      .catch((error) => {
+        setError(error.response.data.message)
+      })
   }
 
   return (
@@ -29,6 +36,12 @@ const Login = ({ setCurrentPage }) => {
           </CardTitle>
         </CardHeader>
         <CardContent>
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-500 px-3 py-2 rounded mb-5" role="alert">
+              <span className="font-medium text-sm">{error}</span>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>

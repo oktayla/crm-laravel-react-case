@@ -2,20 +2,31 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { BrowserRouter, Routes, Route } from 'react-router'
-import Customers from './pages/Customers'
 import Layout from '@/components/Layout'
-import Dashboard from './pages/Dashboard.jsx'
-import Login from './pages/Login.jsx'
+import Dashboard from './pages/Dashboard'
+import Login from './pages/Login'
+import Customers from './pages/Customers'
+import CustomerDetail from './pages/CustomersDetail'
+import { ProtectedRoute, RedirectIfAuthenticated } from '@/lib/checkAuth'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="/customers" element={<Customers />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/customers" element={<Customers />} />
+            <Route path="/customers/:id" element={<CustomerDetail />} />
+          </Route>
         </Route>
-        <Route path="/login" element={<Login />}>
+
+        <Route path="/login" element={
+          <RedirectIfAuthenticated>
+            <Login />
+          </RedirectIfAuthenticated>
+        }>
         </Route>
       </Routes>
     </BrowserRouter>
