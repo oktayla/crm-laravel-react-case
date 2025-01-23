@@ -17,14 +17,10 @@ class CustomerService
         int $perPage = 10,
         array $relations = [],
         array $filters = []
-    ): LengthAwarePaginator {
-        if (!empty($filters)) {
-            return $this->customerRepository
-                ->getWhere($filters, $relations)
-                ->paginate($perPage);
-        }
-
-        return $this->customerRepository->paginate($perPage, $relations);
+    ): LengthAwarePaginator
+    {
+        return $this->customerRepository
+            ->getWherePaginated($filters, $relations, $perPage);
     }
 
     public function createCustomer(array $data): Customer
@@ -43,11 +39,11 @@ class CustomerService
     }
 
     public function searchCustomers(
-        array $criteria,
+        string $term,
         array $relations = []
-    ): Collection
+    ): LengthAwarePaginator
     {
-        return $this->customerRepository->search($criteria, $relations);
+        return $this->customerRepository->search($term, $relations);
     }
 
     public function getCustomerDetails(

@@ -11,7 +11,9 @@ Route::controller(CustomerController::class)
     ->middleware(['auth:sanctum'])
     ->group(function () {
         Route::get('/', 'index')->middleware('permission:view customers');
+        Route::get('/{id}', 'show')->middleware('permission:view customers');
         Route::post('/', 'store')->middleware('permission:create customers');
+        Route::get('/search', 'search')->middleware('permission:view customers');
 
         /*Route::get('statistics', 'statistics')->middleware('permission:view customers');
         Route::get('search', 'search')->middleware('permission:view customers');

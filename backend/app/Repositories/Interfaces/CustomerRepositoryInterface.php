@@ -14,7 +14,7 @@ interface CustomerRepositoryInterface
     public function create(array $data): Customer;
     public function update(int $id, array $data): Customer;
     public function delete(int $id): bool;
-    public function search(array $criteria, array $relations = []): Collection;
+    public function search(string $term, array $relations = []): LengthAwarePaginator;
     public function findByIds(array $ids, array $relations = []): Collection;
     public function getWhere(array $conditions, array $relations = []): Collection;
     public function firstWhere(array $conditions, array $relations = []): ?Customer;

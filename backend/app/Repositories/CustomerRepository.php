@@ -51,19 +51,12 @@ class CustomerRepository implements CustomerRepositoryInterface
         return $customer->delete();
     }
 
-    public function search(array $criteria, array $relations = []): Collection
+    public function search(string $term, array $relations = []): LengthAwarePaginator
     {
-        $query = $this->model->with($relations);
-
-        foreach ($criteria as $field => $value) {
-            if (is_array($value)) {
-                $query->whereIn($field, $value);
-            } else {
-                $query->where($field, 'LIKE', "%{$value}%");
-            }
-        }
-
-        return $query->get();
+        return $this->model
+            ->with($relations)
+            ->whereAny(['first_name', 'last_name', 'phone', 'email'], 'like', '%' . $term . '%')
+            ->paginate();
     }
 
     public function findByIds(array $ids, array $relations = []): Collection
@@ -77,6 +70,21 @@ class CustomerRepository implements CustomerRepositoryInterface
     public function getWhere(array $conditions, array $relations = []): Collection
     {
         return $this->model->with($relations)->where($conditions)->get();
+    }
+
+    public function getWherePaginated(
+        array $conditions,
+        array $relations = [],
+        int $perPage = 10,
+        string $orderBy = 'created_at',
+        string $order = 'desc'
+    ): LengthAwarePaginator
+    {
+        return $this->model
+            ->with($relations)
+            ->where($conditions)
+            ->orderBy($orderBy, $order)
+            ->paginate($perPage);
     }
 
     public function firstWhere(array $conditions, array $relations = []): ?Customer
