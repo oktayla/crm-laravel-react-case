@@ -19,4 +19,5 @@ interface CustomerRepositoryInterface
     public function getWhere(array $conditions, array $relations = []): Collection;
     public function firstWhere(array $conditions, array $relations = []): ?Customer;
     public function count(array $conditions = []): int;
+    public function getRecentCustomers(int $limit = 10): Collection;
 }

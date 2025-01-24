@@ -7,6 +7,7 @@ use App\Repositories\Interfaces\OrderRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class OrderRepository implements OrderRepositoryInterface
 {
@@ -64,5 +65,38 @@ class OrderRepository implements OrderRepositoryInterface
         return $this->model->with($relations)
             ->orderByDesc('created_at')
             ->paginate($perPage);
+    }
+
+    public function count(array $conditions = []): int
+    {
+        return $this->model->where($conditions)->count();
+    }
+
+    public function sum(string $column, array $conditions = []): float
+    {
+        return $this->model->where($conditions)->sum($column);
+    }
+
+    public function getRecentOrders(int $limit = 10): Collection
+    {
+        return $this->model
+            ->with('customer')
+            ->orderByDesc('created_at')
+            ->limit($limit)
+            ->get();
+    }
+
+    public function getMonthlySales(int $months = 12): Collection
+    {
+        return $this->model
+            ->select(
+                DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'),
+                DB::raw('SUM(total_amount) as total_sales')
+            )
+            ->where('status', 'completed')
+            ->groupBy('month')
+            ->orderBy('month', 'desc')
+            ->take($months)
+            ->get();
     }
 }

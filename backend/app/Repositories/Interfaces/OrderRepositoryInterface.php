@@ -14,4 +14,8 @@ interface OrderRepositoryInterface
     public function update(Order $order, array $data): Order;
     public function delete(int $id): bool;
     public function getPaginated(int $perPage = 10, array $relations = []): LengthAwarePaginator;
+    public function count(array $conditions): int;
+    public function sum(string $column, array $conditions): float;
+    public function getRecentOrders(int $limit = 10): Collection;
+    public function getMonthlySales(int $months = 12): Collection;
 }

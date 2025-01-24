@@ -10,11 +10,15 @@ class OrderFactory extends Factory
 {
     public function definition(): array
     {
+        $randomDate = fake()->dateTimeBetween('-24 months');
+
         return [
             'customer_id' => Customer::factory(),
             'status' => fake()->randomElement(['pending', 'processing', 'completed', 'canceled']),
             'total_amount' => 0,
             'note' => fake()->optional(0.3)->sentence(),
+            'created_at' => $randomDate,
+            'updated_at' => $randomDate,
         ];
     }
 

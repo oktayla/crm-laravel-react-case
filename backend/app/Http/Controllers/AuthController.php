@@ -62,4 +62,22 @@ class AuthController extends Controller
         );
     }
 
+    /**
+     * User Logout
+     *
+     * Revoke the current user's access token.
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "message": "User logged out successfully!"
+     * }
+     */
+    public function logout(): JsonResponse
+    {
+        auth()->user()->currentAccessToken()->delete();
+
+        return ResponseBuilder::success(
+            message: 'User logged out successfully!'
+        );
+    }
 }

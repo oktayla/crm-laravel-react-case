@@ -16,11 +16,11 @@ class PopulateDataSeeder extends Seeder
 
         Product::factory(100)->create();
 
-        Order::factory()
+        Order::factory(50)
             ->withItems(3)
             ->create();
 
-        Order::factory()
+        Order::factory(10)
             ->completed()
             ->create();
 

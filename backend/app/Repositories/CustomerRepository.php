@@ -96,4 +96,13 @@ class CustomerRepository implements CustomerRepositoryInterface
     {
         return $this->model->where($conditions)->count();
     }
+
+    public function getRecentCustomers(int $limit = 10): Collection
+    {
+        return $this->model
+            ->withCount('orders')
+            ->orderByDesc('created_at')
+            ->limit($limit)
+            ->get();
+    }
 }
