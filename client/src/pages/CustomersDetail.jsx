@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -22,6 +22,14 @@ const OrderSummary = ({ orders }) => {
     )
   }
 
+  const numberFormatter = (number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 0,
+    }).format(number)
+  }
+
   return (
     <div className="bg-gray-50 p-4 rounded-lg">
       <h3 className="text-lg font-semibold mb-3 flex items-center">
@@ -37,7 +45,7 @@ const OrderSummary = ({ orders }) => {
             <div>
               <p className="font-medium">Order #{order.id}</p>
               <p className="text-sm text-gray-600">
-                Total: ${parseFloat(order.total_amount).toFixed(2)}
+                Total: {numberFormatter(order.total_amount)}
               </p>
             </div>
             <Badge
@@ -98,7 +106,7 @@ const CustomerDetail = () => {
     }
 
     fetchCustomer()
-  }, [id, getCustomer])
+  }, [id])
 
   if (isLoading) {
     return (

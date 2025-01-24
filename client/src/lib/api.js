@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://api.laravel-app.test/'
+//const BASE_URL = 'http://api.laravel-app.test/'
+const BASE_URL = 'https://api.amzrepo.top/'
 
 export const api = (token) => {
   let headers = {
