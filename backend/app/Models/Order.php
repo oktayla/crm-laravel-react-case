@@ -20,6 +20,8 @@ class Order extends Model
         'note',
     ];
 
+    protected $withCount = ['items'];
+
     public function casts(): array
     {
         return [

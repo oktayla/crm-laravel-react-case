@@ -17,6 +17,7 @@ interface OrderRepositoryInterface
     public function getPaginated(int $perPage = 10, array $relations = []): LengthAwarePaginator;
     public function count(array $conditions): int;
     public function sum(string $column, array $conditions): float;
+    public function getRecentOrdersPaginated(int $perPage = 10): LengthAwarePaginator;
     public function getRecentOrders(int $limit = 10): Collection;
     public function getMonthlySales(int $months = 12): Collection;
     public function getDailyOrdersCount(Carbon $date): int;

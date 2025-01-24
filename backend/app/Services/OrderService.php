@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Repositories\Interfaces\CustomerRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class OrderService
 {
@@ -14,12 +15,14 @@ class OrderService
         protected CustomerRepositoryInterface $customerRepository
     ) {}
 
-    public function createOrder(array $data)
+    public function getRecentOrdersPaginated(): LengthAwarePaginator
+    {
+        return $this->orderRepository->getRecentOrdersPaginated();
+    }
+
+    public function createOrder(array $data): Order
     {
         $customer = $this->customerRepository->find($data['customer_id']);
-        if (!$customer) {
-            return null;
-        }
 
         if (!empty($data['items'])) {
             $data['total_amount'] = $this->calculateTotal($data['items']);
@@ -32,6 +35,8 @@ class OrderService
         if (!empty($data['items'])) {
             $order->items()->createMany($data['items']);
         }
+
+        return $order;
     }
 
     public function updateOrderStatus(Order $order, string $status): Order
@@ -44,15 +49,9 @@ class OrderService
         return $this->orderRepository->getByCustomer($customerId, ['items']);
     }
 
-    public function findOrder(int $id): ?Order
+    public function findOrder(int $id): Order
     {
-        $order = $this->orderRepository->find($id, ['items', 'customer']);
-
-        if (!$order) {
-            return null;
-        }
-
-        return $order;
+        return $this->orderRepository->find($id, ['items.product', 'customer']);
     }
 
     protected function calculateTotal(array $items): float

@@ -87,6 +87,14 @@ class OrderRepository implements OrderRepositoryInterface
             ->get();
     }
 
+    public function getRecentOrdersPaginated(int $perPage = 10): LengthAwarePaginator
+    {
+        return $this->model
+            ->with('customer', 'items.product')
+            ->orderByDesc('created_at')
+            ->paginate($perPage);
+    }
+
     public function getMonthlySales(int $months = 12): Collection
     {
         return $this->model

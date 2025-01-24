@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseBuilder;
+use App\Http\Resources\MetaResource;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Services\OrderService;
@@ -15,7 +16,19 @@ class OrderController extends Controller
         protected OrderService $orderService
     ) {}
 
-    public function store(Request $request): JsonResponse
+    public function index(): JsonResponse
+    {
+        $orders = $this->orderService->getRecentOrdersPaginated();
+
+        return ResponseBuilder::success(
+            data: [
+                'orders' => OrderResource::collection($orders),
+                'meta' => MetaResource::make($orders),
+            ],
+        );
+    }
+
+    public function store(Request $request): Order
     {
         return $this->orderService->createOrder($request->validated());
     }

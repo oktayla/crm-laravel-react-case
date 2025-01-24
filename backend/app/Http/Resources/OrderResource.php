@@ -14,8 +14,9 @@ class OrderResource extends JsonResource
             'status' => $this->status,
             'total_amount' => $this->total_amount,
             'note' => $this->note,
-            //'customer' => CustomerResource::make($this->customer),
-            'items' => ItemResource::collection($this->items),
+            'customer' => CustomerResource::make($this->whenLoaded('customer')),
+            'items' => ItemResource::collection($this->whenLoaded('items')),
+            'items_count' => $this->whenCounted('items'),
         ];
     }
 }
