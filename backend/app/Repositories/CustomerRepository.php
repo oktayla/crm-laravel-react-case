@@ -7,6 +7,7 @@ use App\Repositories\Interfaces\CustomerRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Carbon\Carbon;
 
 class CustomerRepository implements CustomerRepositoryInterface
 {
@@ -103,6 +104,18 @@ class CustomerRepository implements CustomerRepositoryInterface
             ->withCount('orders')
             ->orderByDesc('created_at')
             ->limit($limit)
+            ->get();
+    }
+
+    public function getNewCustomersCount(Carbon $date): int
+    {
+        return $this->model->whereDate('created_at', $date)->count();
+    }
+
+    public function getNewCustomers(Carbon $date): Collection
+    {
+        return $this->model
+            ->whereDate('created_at', $date)
             ->get();
     }
 }

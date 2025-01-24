@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class OrderRepository implements OrderRepositoryInterface
 {
@@ -97,6 +98,27 @@ class OrderRepository implements OrderRepositoryInterface
             ->groupBy('month')
             ->orderBy('month', 'desc')
             ->take($months)
+            ->get();
+    }
+
+    public function getDailyOrdersCount(Carbon $date): int
+    {
+        return $this->model->whereDate('created_at', $date)->count();
+    }
+
+    public function getDailyRevenue(Carbon $date): float
+    {
+        return $this->model
+            ->whereDate('created_at', $date)
+            ->where('status', 'completed')
+            ->sum('total_amount');
+    }
+
+    public function getDailyOrders(Carbon $date): Collection
+    {
+        return $this->model
+            ->whereDate('created_at', $date)
+            ->with(['customer', 'items'])
             ->get();
     }
 }

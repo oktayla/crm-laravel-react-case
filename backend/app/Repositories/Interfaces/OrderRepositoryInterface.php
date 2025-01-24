@@ -3,6 +3,7 @@
 namespace App\Repositories\Interfaces;
 
 use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -18,4 +19,7 @@ interface OrderRepositoryInterface
     public function sum(string $column, array $conditions): float;
     public function getRecentOrders(int $limit = 10): Collection;
     public function getMonthlySales(int $months = 12): Collection;
+    public function getDailyOrdersCount(Carbon $date): int;
+    public function getDailyRevenue(Carbon $date): float;
+    public function getDailyOrders(Carbon $date): Collection;
 }

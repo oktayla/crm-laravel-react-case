@@ -3,6 +3,7 @@
 namespace App\Repositories\Interfaces;
 
 use App\Models\Customer;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -20,4 +21,6 @@ interface CustomerRepositoryInterface
     public function firstWhere(array $conditions, array $relations = []): ?Customer;
     public function count(array $conditions = []): int;
     public function getRecentCustomers(int $limit = 10): Collection;
+    public function getNewCustomersCount(Carbon $date): int;
+    public function getNewCustomers(Carbon $date): Collection;
 }
