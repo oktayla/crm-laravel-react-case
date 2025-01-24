@@ -7,6 +7,7 @@ use App\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Repositories\Interfaces\ItemRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 
 class StatsController extends Controller
 {
@@ -19,13 +20,15 @@ class StatsController extends Controller
     public function show(): JsonResponse
     {
         return ResponseBuilder::success(
-            data: [
-                'total_orders' => $this->orderRepository->count(),
-                'total_revenue' => $this->orderRepository->sum('total_amount'),
-                'total_sales' => $this->itemRepository->completedOrderQuantity(),
-                'total_customers' => $this->customerRepository->count(),
-                'sales_performance' => $this->salesPerformanceChart(),
-            ]
+            data: Cache::remember('stats', now()->addHour(), function () {
+                return [
+                    'total_orders' => $this->orderRepository->count(),
+                    'total_revenue' => $this->orderRepository->sum('total_amount'),
+                    'total_sales' => $this->itemRepository->completedOrderQuantity(),
+                    'total_customers' => $this->customerRepository->count(),
+                    'sales_performance' => $this->salesPerformanceChart(),
+                ];
+            })
         );
     }
 
