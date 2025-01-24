@@ -1,4 +1,3 @@
-import React from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import CustomerList from "../components/CustomerList"
 import { Button } from "@/components/ui/button"

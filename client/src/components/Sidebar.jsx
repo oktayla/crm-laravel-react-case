@@ -1,11 +1,11 @@
 import { Home, Users, ShoppingCart, BarChart2, User } from "lucide-react"
 import { Link } from 'react-router'
 
-const Sidebar = ({ setCurrentPage }) => {
+const Sidebar = () => {
   const menuItems = [
     { icon: Home, text: "Dashboard", link: "/" },
     { icon: Users, text: "Customers", link: "/customers" },
-    { icon: ShoppingCart, text: "Sales/Orders", link: "/sales" },
+    { icon: ShoppingCart, text: "Sales/Orders", link: "/orders" },
     { icon: BarChart2, text: "Reports", link: "/reports" },
     { icon: User, text: "Profile", link: "/profile" },
   ]

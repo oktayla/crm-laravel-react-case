@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Customers from './pages/Customers'
 import CustomerDetail from './pages/CustomersDetail'
 import { ProtectedRoute, RedirectIfAuthenticated } from '@/lib/checkAuth'
+import Orders from './pages/Orders.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -19,6 +20,8 @@ createRoot(document.getElementById('root')).render(
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/customers" element={<Customers />} />
             <Route path="/customers/:id" element={<CustomerDetail />} />
+
+            <Route path={"/orders"} element={<Orders />} />
           </Route>
         </Route>
 
